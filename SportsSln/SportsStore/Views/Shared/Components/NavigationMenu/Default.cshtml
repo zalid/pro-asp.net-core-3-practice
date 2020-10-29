@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<string>
 
 <a class="btn btn-block @(String.IsNullOrWhiteSpace(ViewBag.SelectedCategory) ? "btn-primary": "btn-outline-secondary")"
- asp-action="Index"
  asp-controller="Home" 
+ asp-action="Index"
  asp-route-category="">
     Home
 </a>

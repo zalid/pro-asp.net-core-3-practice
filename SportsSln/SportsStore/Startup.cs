@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using SportsStore.Models;
 
 namespace SportsStore
@@ -28,6 +30,13 @@ namespace SportsStore
 				opts.UseSqlServer(
 					Configuration["ConnectionStrings:SportsStoreConnection"]);
 			});
+			services.AddDbContext<AppIdentityDbContext>(opts =>
+			{
+				opts.UseSqlServer(
+					Configuration["ConnectionStrings:AspCoreIdentityConnection"]);
+			});
+			services.AddIdentity<IdentityUser, IdentityRole>()
+					.AddEntityFrameworkStores<AppIdentityDbContext>();
 			services.AddScoped<IStoreRepository, EFStoreRepository>();
 			services.AddScoped<IOrderRepository, EFOrderRepository>();
 			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -36,11 +45,20 @@ namespace SportsStore
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
-			app.UseDeveloperExceptionPage();
-			app.UseStatusCodePages();
+			if(env.IsProduction())
+			{
+				app.UseExceptionHandler("/error");
+			}
+			else
+			{
+				app.UseDeveloperExceptionPage();
+				app.UseStatusCodePages();
+			}
 			app.UseStaticFiles();
 			app.UseSession();
 			app.UseRouting();
+			app.UseAuthentication();
+			app.UseAuthorization();
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllerRoute(
@@ -69,6 +87,7 @@ namespace SportsStore
 			});
 
 			SeedData.EnsurePopulated(app);
+			IdentitySeedData.EnsurePopulated(app);
 		}
 	}
 }
