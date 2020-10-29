@@ -56,7 +56,7 @@
     {
         if(this.Id != 0)
         {
-            this.Product = Repository.Products.FirstOrDefault(p => p.ProductID == Id);
+            this.Product = this.Repository.Products.FirstOrDefault(p => p.ProductID == Id);
         }
     }
 
@@ -64,14 +64,14 @@
     {
         if(this.Id == 0)
         {
-            this.Repository.CreateProduct(Product);
+            this.Repository.CreateProduct(this.Product);
         } else 
         {
-            this.Repository.SaveProduct(Product);
+            this.Repository.SaveProduct(this.Product);
         }
         this.NavManager.NavigateTo("/admin/products");
     }
 
-    public string ThemeColor => Id == 0 ? "primary" : "warning";
-    public string TitleText => Id == 0 ? "Create" : "Edit";
+    public string ThemeColor => this.Id == 0 ? "primary" : "warning";
+    public string TitleText => this.Id == 0 ? "Create" : "Edit";
 }
