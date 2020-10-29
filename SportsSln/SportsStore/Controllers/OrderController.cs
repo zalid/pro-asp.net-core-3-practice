@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using SportsStore.Models;
 
 namespace SportsStore.Controllers
 {
-
 	public class OrderController : Controller
 	{
 		private IOrderRepository repository;
@@ -20,7 +20,7 @@ namespace SportsStore.Controllers
 		[HttpPost]
 		public IActionResult Checkout(Order order)
 		{
-			if(cart.Lines.Count == 0)
+			if(!cart.Lines.Any())
 			{
 				this.ModelState.AddModelError("", "Sorry, your cart is empty!");
 			}

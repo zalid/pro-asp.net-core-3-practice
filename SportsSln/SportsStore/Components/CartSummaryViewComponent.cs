@@ -3,7 +3,6 @@ using SportsStore.Models;
 
 namespace SportsStore.Components
 {
-
 	public class CartSummaryViewComponent : ViewComponent
 	{
 		private Cart cart;

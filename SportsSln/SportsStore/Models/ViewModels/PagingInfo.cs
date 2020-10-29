@@ -2,7 +2,6 @@
 
 namespace SportsStore.Models.ViewModels
 {
-
 	public class PagingInfo
 	{
 		public int TotalItems { get; set; }

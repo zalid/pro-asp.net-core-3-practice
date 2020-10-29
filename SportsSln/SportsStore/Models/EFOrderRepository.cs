@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SportsStore.Models
 {
-
 	public class EFOrderRepository : IOrderRepository
 	{
 		private StoreDbContext context;

@@ -20,6 +20,7 @@ namespace SportsStore
 		{
 			services.AddControllersWithViews();
 			services.AddRazorPages();
+			services.AddServerSideBlazor();
 			services.AddDistributedMemoryCache();
 			services.AddSession();
 			services.AddDbContext<StoreDbContext>(opts =>
@@ -63,6 +64,8 @@ namespace SportsStore
 					new { Controller = "Home", action = "Index", productPage = 1 });
 				endpoints.MapDefaultControllerRoute();
 				endpoints.MapRazorPages();
+				endpoints.MapBlazorHub();
+				endpoints.MapFallbackToPage("/admin/{*catchall}", "/Admin/Index");
 			});
 
 			SeedData.EnsurePopulated(app);

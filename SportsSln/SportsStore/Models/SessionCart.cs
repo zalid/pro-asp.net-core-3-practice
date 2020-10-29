@@ -6,7 +6,6 @@ using SportsStore.Infrastructure;
 
 namespace SportsStore.Models
 {
-
 	public class SessionCart : Cart
 	{
 

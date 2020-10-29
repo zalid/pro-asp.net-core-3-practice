@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Http;
 
 namespace SportsStore.Infrastructure
 {
-
 	public static class SessionExtensions
 	{
 

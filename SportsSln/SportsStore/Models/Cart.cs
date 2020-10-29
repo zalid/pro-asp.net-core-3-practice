@@ -9,11 +9,11 @@ namespace SportsStore.Models
 
 		public virtual void AddItem(Product product, int quantity)
 		{
-			var line = Lines.FirstOrDefault(p => p.Product.ProductID == product.ProductID);
+			var line = this.Lines.FirstOrDefault(p => p.Product.ProductID == product.ProductID);
 
 			if(line == null)
 			{
-				Lines.Add(new CartLine
+				Lines.Add(new CartLine()
 				{
 					Product = product,
 					Quantity = quantity
